@@ -165,21 +165,24 @@
       </div>
       
       <div class="mb-3">
-        <label class="form-label text-muted fw-semibold small mb-1">CHAVE PIX DO COMERCIANTE</label>
+        <label class="form-label text-white fw-bold small mb-1">CHAVE PIX DO COMERCIANTE</label>
+        <p class="text-muted mb-2" style="font-size: 0.8rem; line-height: 1.3;">Insira a sua chave do banco para receber as transferências. Ex: celular com DDD (11999999999), CPF/CNPJ sem pontos e traços, e-mail ou a chave aleatória exata.</p>
         <input type="text" id="pixKey" class="form-control form-control-lg mb-1" placeholder="CPF, CNPJ, E-mail, Celular ou Aleatória">
-        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Utilize celular com DDD (ex: 17999999999), CPF/CNPJ sem pontos ou a sua chave aleatória com hifens.</div>
+        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">O sistema reconhece e formata automaticamente a chave inserida.</div>
       </div>
       
       <div class="mb-3">
-        <label class="form-label text-muted fw-semibold small mb-1">NOME DO RECEBEDOR / LOJA</label>
+        <label class="form-label text-white fw-bold small mb-1">NOME DO RECEBEDOR / LOJA</label>
+        <p class="text-muted mb-2" style="font-size: 0.8rem; line-height: 1.3;">Defina o nome da sua empresa, estabelecimento ou nome completo para exibição. É este texto que o cliente verá na tela do banco no momento do pagamento.</p>
         <input type="text" id="merchantName" class="form-control form-control-lg mb-1" placeholder="Ex: Mercado do Bairro">
-        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Como o seu negócio deve aparecer para o cliente que vai pagar (ex: Cantina do Talatona).</div>
+        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Utilize apenas letras e números (sem caracteres especiais).</div>
       </div>
       
       <div class="mb-4">
-        <label class="form-label text-muted fw-semibold small mb-1">CIDADE</label>
+        <label class="form-label text-white fw-bold small mb-1">CIDADE</label>
+        <p class="text-muted mb-2" style="font-size: 0.8rem; line-height: 1.3;">Informe o município ou a cidade de localização da sua atividade comercial (ex: SAO PAULO ou SAO JOSE DO RIO PRETO) de acordo com o registo bancário.</p>
         <input type="text" id="merchantCity" class="form-control form-control-lg mb-1" placeholder="Ex: SAO PAULO" value="SAO PAULO">
-        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Cidade do seu estabelecimento (padrão sem acentos).</div>
+        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Dê preferência a digitar sem acentuações para evitar erros de leitura.</div>
       </div>
       
       <button class="btn btn-action btn-lg w-100" onclick="saveConfig()">Salvar e Iniciar</button>
