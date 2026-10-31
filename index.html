@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Sim7 Digital</title>
+  <title>Sim7 Tecnolog</title>
   
-  <!-- Manifest para PWA (Instalação no telemóvel) -->
+  <!-- Manifest para PWA -->
   <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Pix%20POS%20-%20Sim7%22%2C%22short_name%22%3A%22PixPOS%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0f19%22%2C%22theme_color%22%3A%22%2307b8a7%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A//cdn-icons-png.flaticon.com/512/5968/5968666.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%7D%5D%7D">
   <meta name="theme-color" content="#0b0f19">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,85 +33,88 @@
       user-select: none; 
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       overflow-x: hidden;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 10px;
     }
 
     .pos-card { 
       width: 100%;
-      max-width: 410px; 
+      max-width: 385px; 
       background: var(--card-bg);
-      border-radius: 28px; 
+      border-radius: 20px; 
       box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); 
       border: 1px solid var(--border-color);
       overflow: hidden;
-      padding: 24px;
+      padding: 16px; /* Reduzido de 24px */
     }
 
     .display-valor { 
-      font-size: 2.8rem; 
+      font-size: 2.4rem; /* Reduzido de 2.8rem */
       font-weight: 800; 
       color: var(--primary); 
       text-align: right; 
       background: #0f172a; 
-      border-radius: 20px; 
-      padding: 20px; 
+      border-radius: 14px; 
+      padding: 12px; 
       border: 1px solid var(--border-color);
       letter-spacing: -0.03em;
       box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
     }
 
     .btn-key { 
-      font-size: 1.6rem; 
+      font-size: 1.4rem; 
       font-weight: 600; 
-      padding: 16px 0; 
-      border-radius: 16px; 
+      padding: 12px 0; /* Reduzido de 16px */
+      border-radius: 12px; 
       background: #1e293b; 
       border: 1px solid #334155; 
       color: var(--text-main); 
-      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); 
+      transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1); 
     }
     .btn-key:active { 
       background: #334155; 
-      transform: scale(0.94); 
+      transform: scale(0.95); 
     }
 
     .btn-action {
       background: var(--primary);
       border: none;
       color: #ffffff;
-      border-radius: 18px;
-      padding: 18px 0;
-      font-size: 1.2rem;
+      border-radius: 14px;
+      padding: 12px 0; /* Reduzido de 18px */
+      font-size: 1.1rem;
       font-weight: 700;
       transition: all 0.2s ease;
       box-shadow: 0 4px 14px rgba(7, 184, 167, 0.3);
     }
     .btn-action:active {
-      transform: scale(0.97);
+      transform: scale(0.98);
       background: var(--primary-hover);
     }
 
     /* Ajustes QR Code */
     #qrcode {
       background: white;
-      padding: 16px;
-      border-radius: 24px;
+      padding: 12px;
+      border-radius: 16px;
       display: inline-block;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
     #qrcode img {
       margin: 0 auto;
+      max-width: 170px; /* Reduzido de 200px */
+      max-height: 170px;
     }
 
     .historic-pill {
       background: #0f172a;
       border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 10px 16px;
-      font-size: 0.9rem;
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
@@ -119,8 +122,9 @@
       background-color: #0f172a !important;
       border: 1px solid var(--border-color) !important;
       color: var(--text-main) !important;
-      border-radius: 14px;
-      padding: 12px;
+      border-radius: 10px;
+      padding: 8px 12px; /* Reduzido de 12px */
+      font-size: 0.9rem;
     }
     .form-control:focus, .form-select:focus {
       border-color: var(--primary) !important;
@@ -129,26 +133,26 @@
 
     /* Transições de tela */
     .screen-fade {
-      animation: fadeIn 0.3s ease-out;
+      animation: fadeIn 0.2s ease-out;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(5px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-<div class="container p-3 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
   <div class="card pos-card bg-dark">
     
-    <!-- Tela 1: Configuração da Chave Pix com a Logo Sim7 Tecnolog -->
+    <!-- Tela 1: Configuração da Chave Pix com a Logo Sim7 Tecnolog (Compacta) -->
     <div id="step-config" class="d-none screen-fade">
-      <div class="text-center mb-4">
-        <!-- Logo Sim7 Tecnolog Renderizada em SVG -->
-        <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
-          <!-- Ícone do Chip 7 -->
-          <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div class="text-center mb-2">
+        <!-- Logo Sim7 Tecnolog SVG Reduzido -->
+        <div class="d-flex align-items-center justify-content-center gap-2">
+          <!-- Ícone do Chip 7 (Escalonado para 35px) -->
+          <svg width="35" height="35" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="15" y="15" width="70" height="70" rx="15" fill="#0b0f19" stroke="#07b8a7" stroke-width="4"/>
             <path d="M25 40 H35 M25 50 H35 M25 60 H35 M65 40 H75 M65 50 H75 M65 60 H75 M40 25 V35 M50 25 V35 M60 25 V35 M40 65 V75 M50 65 V75 M60 65 V75" stroke="#07b8a7" stroke-width="3" stroke-linecap="round"/>
             <path d="M35 32 L65 32 L40 68" stroke="#00f2fe" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -156,58 +160,54 @@
           </svg>
           <!-- Texto da Marca -->
           <div class="text-start">
-            <span class="fw-bold text-white fs-3" style="letter-spacing: -0.02em;">Sim<span style="color: #00f2fe;">7</span></span>
-            <div style="font-size: 0.65rem; color: #94a3b8; letter-spacing: 0.25em; font-weight: 800; margin-top: -6px;">TECNOLOG</div>
+            <span class="fw-bold text-white fs-4" style="letter-spacing: -0.02em;">Sim<span style="color: #00f2fe;">7</span></span>
+            <div style="font-size: 0.55rem; color: #94a3b8; letter-spacing: 0.25em; font-weight: 800; margin-top: -6px;">TECNOLOG</div>
           </div>
         </div>
-        <h5 class="fw-bold text-white m-0 mt-3">Ativar Pix POS</h5>
-        <small class="text-muted">Configure o seu estabelecimento abaixo</small>
+        <h6 class="fw-bold text-white m-0 mt-2">Ativar Pix POS</h6>
+      </div>
+      
+      <div class="mb-2">
+        <label class="form-label text-white fw-bold small mb-0">CHAVE PIX</label>
+        <div class="text-muted mb-1" style="font-size: 0.75rem;">Para receber as vendas: Celular com DDD, CPF/CNPJ, e-mail ou chave aleatória.</div>
+        <input type="text" id="pixKey" class="form-control form-control-sm" placeholder="Digite a sua chave do banco">
+      </div>
+      
+      <div class="mb-2">
+        <label class="form-label text-white fw-bold small mb-0">NOME DO RECEBEDOR / LOJA</label>
+        <div class="text-muted mb-1" style="font-size: 0.75rem;">Nome da empresa ou do titular visível para o cliente no banco.</div>
+        <input type="text" id="merchantName" class="form-control form-control-sm" placeholder="Ex: Mercado do Bairro">
       </div>
       
       <div class="mb-3">
-        <label class="form-label text-white fw-bold small mb-1">CHAVE PIX DO COMERCIANTE</label>
-        <p class="text-muted mb-2" style="font-size: 0.8rem; line-height: 1.3;">Insira a sua chave do banco para receber as transferências. Ex: celular com DDD (11999999999), CPF/CNPJ sem pontos e traços, e-mail ou a chave aleatória exata.</p>
-        <input type="text" id="pixKey" class="form-control form-control-lg mb-1" placeholder="CPF, CNPJ, E-mail, Celular ou Aleatória">
-        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">O sistema reconhece e formata automaticamente a chave inserida.</div>
+        <label class="form-label text-white fw-bold small mb-0">CIDADE</label>
+        <div class="text-muted mb-1" style="font-size: 0.75rem;">Cidade de localização do seu registo comercial.</div>
+        <input type="text" id="merchantCity" class="form-control form-control-sm" placeholder="Ex: SAO PAULO" value="SAO PAULO">
       </div>
       
-      <div class="mb-3">
-        <label class="form-label text-white fw-bold small mb-1">NOME DO RECEBEDOR / LOJA</label>
-        <p class="text-muted mb-2" style="font-size: 0.8rem; line-height: 1.3;">Defina o nome da sua empresa, estabelecimento ou nome completo para exibição. É este texto que o cliente verá na tela do banco no momento do pagamento.</p>
-        <input type="text" id="merchantName" class="form-control form-control-lg mb-1" placeholder="Ex: Mercado do Bairro">
-        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Utilize apenas letras e números (sem caracteres especiais).</div>
-      </div>
-      
-      <div class="mb-4">
-        <label class="form-label text-white fw-bold small mb-1">CIDADE</label>
-        <p class="text-muted mb-2" style="font-size: 0.8rem; line-height: 1.3;">Informe o município ou a cidade de localização da sua atividade comercial (ex: SAO PAULO ou SAO JOSE DO RIO PRETO) de acordo com o registo bancário.</p>
-        <input type="text" id="merchantCity" class="form-control form-control-lg mb-1" placeholder="Ex: SAO PAULO" value="SAO PAULO">
-        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Dê preferência a digitar sem acentuações para evitar erros de leitura.</div>
-      </div>
-      
-      <button class="btn btn-action btn-lg w-100" onclick="saveConfig()">Salvar e Iniciar</button>
+      <button class="btn btn-action btn-lg w-100 py-2.5" onclick="saveConfig()">Salvar e Iniciar</button>
     </div>
 
-    <!-- Tela 2: Teclado de Vendas -->
+    <!-- Tela 2: Teclado de Vendas (Compacto) -->
     <div id="step-sale" class="screen-fade">
-      <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="d-flex justify-content-between align-items-center mb-2">
         <div class="d-flex align-items-center gap-2">
           <!-- Logo Reduzido no Topo -->
           <div class="d-flex align-items-center gap-1">
-            <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="18" height="18" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="15" y="15" width="70" height="70" rx="15" fill="#0b0f19" stroke="#07b8a7" stroke-width="6"/>
               <path d="M35 32 L65 32 L40 68" stroke="#00f2fe" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span class="badge" style="background-color: var(--primary); font-weight: 600; padding: 6px 10px;" id="storeLabel">Carregando...</span>
+            <span class="badge" style="background-color: var(--primary); font-weight: 600; padding: 4px 8px; font-size: 0.75rem;" id="storeLabel">Carregando...</span>
           </div>
-          <span class="historic-pill py-1 px-2" id="dayTotal" style="font-size: 0.8rem;">Hoje: R$ 0,00</span>
+          <span class="historic-pill py-1 px-2" id="dayTotal" style="font-size: 0.75rem;">Hoje: R$ 0,00</span>
         </div>
         <button class="btn btn-sm btn-outline-secondary border-0 p-1" onclick="editConfig()">⚙️</button>
       </div>
       
-      <div class="display-valor mb-3" id="display">R$ 0,00</div>
+      <div class="display-valor mb-2" id="display">R$ 0,00</div>
 
-      <div class="row g-2 mb-3">
+      <div class="row g-1.5 mb-2">
         <div class="col-4"><button class="btn btn-key w-100" onclick="pressNum('1')">1</button></div>
         <div class="col-4"><button class="btn btn-key w-100" onclick="pressNum('2')">2</button></div>
         <div class="col-4"><button class="btn btn-key w-100" onclick="pressNum('3')">3</button></div>
@@ -222,22 +222,22 @@
         <div class="col-4"><button class="btn btn-key w-100 text-muted" onclick="backspace()">⌫</button></div>
       </div>
 
-      <button class="btn btn-action btn-lg w-100" onclick="generatePix()">COBRAR NO PIX</button>
+      <button class="btn btn-action btn-lg w-100 py-2.5" onclick="generatePix()">COBRAR NO PIX</button>
     </div>
 
-    <!-- Tela 3: QR Code Gerado -->
+    <!-- Tela 3: QR Code Gerado (Compacto) -->
     <div id="step-qrcode" class="d-none text-center screen-fade">
-      <span class="badge mb-3 px-3 py-2 text-white" style="background-color: var(--primary); font-weight: 600; letter-spacing: 0.05em;">AGUARDANDO PAGAMENTO</span>
-      <h1 class="fw-bold text-white mb-4" id="qrValue">R$ 0,00</h1>
+      <span class="badge mb-2 px-3 py-1.5 text-white" style="background-color: var(--primary); font-weight: 600; letter-spacing: 0.05em; font-size: 0.75rem;">AGUARDANDO PAGAMENTO</span>
+      <h2 class="fw-bold text-white mb-2" id="qrValue">R$ 0,00</h2>
       
-      <div class="mb-4">
+      <div class="mb-2">
         <div id="qrcode" class="mx-auto"></div>
       </div>
       
-      <p class="small text-muted mb-4 px-3">Mostre a tela para o cliente digitalizar o QR Code no app do banco dele.</p>
+      <p class="small text-muted mb-2 px-3" style="font-size: 0.8rem;">Mostre o QR Code ao cliente para pagar no banco.</p>
 
-      <button class="btn btn-action btn-lg w-100 mb-2" onclick="confirmPayment()">PAGO / NOVA VENDA</button>
-      <button class="btn btn-link text-decoration-none text-danger w-100 fw-semibold" onclick="cancelSale()">Cancelar</button>
+      <button class="btn btn-action btn-lg w-100 mb-1.5 py-2.5" onclick="confirmPayment()">PAGO / NOVA VENDA</button>
+      <button class="btn btn-link text-decoration-none text-danger w-100 fw-semibold btn-sm" onclick="cancelSale()">Cancelar</button>
     </div>
 
   </div>
@@ -397,7 +397,7 @@
     return payload;
   }
 
-  // Função para Cálculo CRC16 CCITT (Requisito obrigatório do Banco Central)
+  // Função para Cálculo CRC16 CCITT
   function crc16(str) {
     let crc = 0xFFFF;
     for (let i = 0; i < str.length; i++) {
@@ -426,8 +426,8 @@
     document.getElementById('qrcode').innerHTML = '';
     new QRCode(document.getElementById('qrcode'), {
       text: pixPayload,
-      width: 200,
-      height: 200,
+      width: 170, // Reduzido de 200
+      height: 170, // Reduzido de 200
       colorDark : "#0b0f19"
     });
 
