@@ -151,19 +151,21 @@
       </div>
       
       <div class="mb-3">
-        <label class="form-label text-muted fw-medium small">CHAVE PIX DO COMERCIANTE</label>
-        <input type="text" id="pixKey" class="form-control form-control-lg" placeholder="CPF, CNPJ, E-mail ou Celular">
-        <div class="form-text text-muted" style="font-size: 0.75rem;">Utilize o celular com DDD (ex: 11999999999) ou CPF sem pontuação.</div>
+        <label class="form-label text-muted fw-semibold small mb-1">CHAVE PIX DO COMERCIANTE</label>
+        <input type="text" id="pixKey" class="form-control form-control-lg mb-1" placeholder="CPF, CNPJ, E-mail, Celular ou Aleatória">
+        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Utilize celular com DDD (ex: 17999999999), CPF/CNPJ sem pontos ou a sua chave aleatória com hifens.</div>
       </div>
       
       <div class="mb-3">
-        <label class="form-label text-muted fw-medium small">NOME DO RECEBEDOR / LOJA</label>
-        <input type="text" id="merchantName" class="form-control form-control-lg" placeholder="Ex: Mercado do Bairro">
+        <label class="form-label text-muted fw-semibold small mb-1">NOME DO RECEBEDOR / LOJA</label>
+        <input type="text" id="merchantName" class="form-control form-control-lg mb-1" placeholder="Ex: Mercado do Bairro">
+        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Como o seu negócio deve aparecer para o cliente que vai pagar (ex: Cantina do Talatona).</div>
       </div>
       
       <div class="mb-4">
-        <label class="form-label text-muted fw-medium small">CIDADE</label>
-        <input type="text" id="merchantCity" class="form-control form-control-lg" placeholder="Ex: SAO PAULO" value="SAO PAULO">
+        <label class="form-label text-muted fw-semibold small mb-1">CIDADE</label>
+        <input type="text" id="merchantCity" class="form-control form-control-lg mb-1" placeholder="Ex: SAO PAULO" value="SAO PAULO">
+        <div class="form-text text-muted" style="font-size: 0.75rem; line-height: 1.25;">Cidade do seu estabelecimento (padrão sem acentos).</div>
       </div>
       
       <button class="btn btn-action btn-lg w-100" onclick="saveConfig()">Salvar e Iniciar</button>
@@ -222,10 +224,9 @@
   let config = {};
   let totalDia = 0;
 
-  // Efeitos Sonoros Simulados por Sintetizador de Áudio (Dispensa arquivos externos)
+  // Efeitos Sonoros Simulados por Sintetizador de Áudio
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   function playSuccessSound() {
-    // Som "Ka-Ching" (Caixa Registadora) feito via Código
     const now = audioCtx.currentTime;
     
     // Primeiro bipe (médio)
@@ -240,7 +241,7 @@
     osc1.start(now);
     osc1.stop(now + 0.15);
 
-    // Segundo bipe (mais agudo, simulando moedas)
+    // Segundo bipe (mais agudo)
     const osc2 = audioCtx.createOscillator();
     const gain2 = audioCtx.createGain();
     osc2.type = 'sine';
