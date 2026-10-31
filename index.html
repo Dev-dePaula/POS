@@ -4,56 +4,179 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Sim Digital</title>
+  
+  <!-- Manifest para PWA (Instalação no telemóvel) -->
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Pix%20POS%22%2C%22short_name%22%3A%22PixPOS%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0f19%22%2C%22theme_color%22%3A%22%2307b8a7%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A//cdn-icons-png.flaticon.com/512/5968/5968666.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%7D%5D%7D">
+  <meta name="theme-color" content="#0b0f19">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Confetes e Animações -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
   <style>
-    body { background-color: #f4f6f9; user-select: none; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    .pos-card { max-width: 400px; margin: 20px auto; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: none; }
-    .display-valor { font-size: 2.5rem; font-weight: bold; color: #00bdae; text-align: right; background: #f0fdfa; border-radius: 12px; padding: 15px; border: 1px solid #ccfbf1; }
-    .btn-key { font-size: 1.5rem; font-weight: 600; padding: 18px 0; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; color: #1e293b; transition: all 0.1s ease; }
-    .btn-key:active { background: #cbd5e1; transform: scale(0.97); }
-    #qrcode img { margin: 0 auto; border: 8px solid #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    :root {
+      --bg-dark: #0b0f19;
+      --card-bg: #151c2c;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #07b8a7; /* Tom Pix */
+      --primary-hover: #059688;
+      --danger: #f43f5e;
+      --border-color: #1e293b;
+    }
+
+    body { 
+      background-color: var(--bg-dark); 
+      color: var(--text-main);
+      user-select: none; 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pos-card { 
+      width: 100%;
+      max-width: 410px; 
+      background: var(--card-bg);
+      border-radius: 28px; 
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); 
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    .display-valor { 
+      font-size: 2.8rem; 
+      font-weight: 800; 
+      color: var(--primary); 
+      text-align: right; 
+      background: #0f172a; 
+      border-radius: 20px; 
+      padding: 20px; 
+      border: 1px solid var(--border-color);
+      letter-spacing: -0.03em;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .btn-key { 
+      font-size: 1.6rem; 
+      font-weight: 600; 
+      padding: 16px 0; 
+      border-radius: 16px; 
+      background: #1e293b; 
+      border: 1px solid #334155; 
+      color: var(--text-main); 
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); 
+    }
+    .btn-key:active { 
+      background: #334155; 
+      transform: scale(0.94); 
+    }
+
+    .btn-action {
+      background: var(--primary);
+      border: none;
+      color: #ffffff;
+      border-radius: 18px;
+      padding: 18px 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(7, 184, 167, 0.3);
+    }
+    .btn-action:active {
+      transform: scale(0.97);
+      background: var(--primary-hover);
+    }
+
+    /* Ajustes QR Code */
+    #qrcode {
+      background: white;
+      padding: 16px;
+      border-radius: 24px;
+      display: inline-block;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    #qrcode img {
+      margin: 0 auto;
+    }
+
+    .historic-pill {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .form-control, .form-select {
+      background-color: #0f172a !important;
+      border: 1px solid var(--border-color) !important;
+      color: var(--text-main) !important;
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary) !important;
+      box-shadow: 0 0 0 2px rgba(7, 184, 167, 0.2);
+    }
+
+    /* Transições de tela */
+    .screen-fade {
+      animation: fadeIn 0.3s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
 
-<div class="container p-3">
-  <div class="card pos-card p-4 bg-white">
+<div class="container p-3 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="card pos-card bg-dark">
     
     <!-- Tela 1: Configuração da Chave Pix -->
-    <div id="step-config" class="d-none">
-      <div class="text-center mb-3">
-        <h4 class="fw-bold text-dark m-0">Configurar Pix</h4>
-        <small class="text-muted">Cadastre os dados para receber os pagamentos</small>
+    <div id="step-config" class="d-none screen-fade">
+      <div class="text-center mb-4">
+        <div class="mb-2" style="font-size: 2.5rem;">⚡</div>
+        <h4 class="fw-bold text-white m-0">Ativar Pix POS</h4>
+        <small class="text-muted">Configure o seu estabelecimento abaixo</small>
       </div>
       
       <div class="mb-3">
-        <label class="form-label fw-semibold">Chave Pix do Comerciante</label>
-        <input type="text" id="pixKey" class="form-control form-control-lg" placeholder="CPF, CNPJ, E-mail, Celular ou Chave Aleatória">
-        <div class="form-text">Ex: CPF sem pontos, celular com DDD (ex: 17999999999) ou chave aleatória com hifens.</div>
+        <label class="form-label text-muted fw-medium small">CHAVE PIX DO COMERCIANTE</label>
+        <input type="text" id="pixKey" class="form-control form-control-lg" placeholder="CPF, CNPJ, E-mail ou Celular">
+        <div class="form-text text-muted" style="font-size: 0.75rem;">Utilize o celular com DDD (ex: 11999999999) ou CPF sem pontuação.</div>
       </div>
       
       <div class="mb-3">
-        <label class="form-label fw-semibold">Nome do Recebedor / Loja</label>
-        <input type="text" id="merchantName" class="form-control form-control-lg" placeholder="Ex: Mercado do Zé">
+        <label class="form-label text-muted fw-medium small">NOME DO RECEBEDOR / LOJA</label>
+        <input type="text" id="merchantName" class="form-control form-control-lg" placeholder="Ex: Mercado do Bairro">
       </div>
       
-      <div class="mb-3">
-        <label class="form-label fw-semibold">Cidade do Estabelecimento</label>
-        <input type="text" id="merchantCity" class="form-control form-control-lg" placeholder="Ex: SAO JOSE DO RIO PRETO" value="SAO PAULO">
+      <div class="mb-4">
+        <label class="form-label text-muted fw-medium small">CIDADE</label>
+        <input type="text" id="merchantCity" class="form-control form-control-lg" placeholder="Ex: SAO PAULO" value="SAO PAULO">
       </div>
       
-      <button class="btn btn-primary btn-lg w-100 py-3 fw-bold" style="background-color: #00bdae; border: none;" onclick="saveConfig()">Salvar e Iniciar</button>
+      <button class="btn btn-action btn-lg w-100" onclick="saveConfig()">Salvar e Iniciar</button>
     </div>
 
     <!-- Tela 2: Teclado de Vendas -->
-    <div id="step-sale">
+    <div id="step-sale" class="screen-fade">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-          <span class="badge" style="background-color: #00bdae;" id="storeLabel">Loja</span>
-          <span class="badge bg-secondary">PIX</span>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge" style="background-color: var(--primary); font-weight: 600;" id="storeLabel">Carregando...</span>
+          <span class="historic-pill py-1 px-2" id="dayTotal" style="font-size: 0.8rem;">Hoje: R$ 0,00</span>
         </div>
-        <button class="btn btn-sm btn-outline-secondary py-1" onclick="editConfig()">⚙️ Config</button>
+        <button class="btn btn-sm btn-outline-secondary border-0 p-1" onclick="editConfig()">⚙️</button>
       </div>
       
       <div class="display-valor mb-3" id="display">R$ 0,00</div>
@@ -68,25 +191,27 @@
         <div class="col-4"><button class="btn btn-key w-100" onclick="pressNum('7')">7</button></div>
         <div class="col-4"><button class="btn btn-key w-100" onclick="pressNum('8')">8</button></div>
         <div class="col-4"><button class="btn btn-key w-100" onclick="pressNum('9')">9</button></div>
-        <div class="col-4"><button class="btn btn-key w-100 text-danger fw-bold" onclick="clearValue()">C</button></div>
+        <div class="col-4"><button class="btn btn-key w-100 text-danger" onclick="clearValue()">C</button></div>
         <div class="col-4"><button class="btn btn-key w-100" onclick="pressNum('0')">0</button></div>
         <div class="col-4"><button class="btn btn-key w-100 text-muted" onclick="backspace()">⌫</button></div>
       </div>
 
-      <button class="btn btn-success btn-lg w-100 py-3 fw-bold" style="background-color: #00bdae; border: none;" onclick="generatePix()">COBRAR (PIX)</button>
+      <button class="btn btn-action btn-lg w-100" onclick="generatePix()">COBRAR NO PIX</button>
     </div>
 
     <!-- Tela 3: QR Code Gerado -->
-    <div id="step-qrcode" class="d-none text-center">
-      <span class="badge mb-2 px-3 py-2 text-white" style="background-color: #00bdae;">AGUARDANDO PAGAMENTO</span>
-      <h2 class="fw-extrabold text-dark mb-3" id="qrValue">R$ 0,00</h2>
+    <div id="step-qrcode" class="d-none text-center screen-fade">
+      <span class="badge mb-3 px-3 py-2 text-white" style="background-color: var(--primary); font-weight: 600; letter-spacing: 0.05em;">AGUARDANDO PAGAMENTO</span>
+      <h1 class="fw-bold text-white mb-4" id="qrValue">R$ 0,00</h1>
       
-      <div id="qrcode" class="mb-3 d-flex justify-content-center"></div>
+      <div class="mb-4">
+        <div id="qrcode" class="mx-auto"></div>
+      </div>
       
-      <p class="small text-muted mb-3">Apresente a tela para o cliente escanear com o app do banco</p>
+      <p class="small text-muted mb-4 px-3">Mostre a tela para o cliente digitalizar o QR Code no app do banco dele.</p>
 
-      <button class="btn btn-success btn-lg w-100 py-3 fw-bold mb-2" onclick="confirmPayment()">CONFIRMAR / NOVA VENDA</button>
-      <button class="btn btn-link text-decoration-none text-danger w-100" onclick="cancelSale()">Cancelar Cobrança</button>
+      <button class="btn btn-action btn-lg w-100 mb-2" onclick="confirmPayment()">PAGO / NOVA VENDA</button>
+      <button class="btn btn-link text-decoration-none text-danger w-100 fw-semibold" onclick="cancelSale()">Cancelar</button>
     </div>
 
   </div>
@@ -95,13 +220,53 @@
 <script>
   let rawCents = 0;
   let config = {};
+  let totalDia = 0;
 
-  // Inicialização
+  // Efeitos Sonoros Simulados por Sintetizador de Áudio (Dispensa arquivos externos)
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  function playSuccessSound() {
+    // Som "Ka-Ching" (Caixa Registadora) feito via Código
+    const now = audioCtx.currentTime;
+    
+    // Primeiro bipe (médio)
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(800, now);
+    gain1.gain.setValueAtTime(0.15, now);
+    gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+    osc1.connect(gain1);
+    gain1.connect(audioCtx.destination);
+    osc1.start(now);
+    osc1.stop(now + 0.15);
+
+    // Segundo bipe (mais agudo, simulando moedas)
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(1200, now + 0.08);
+    gain2.gain.setValueAtTime(0.2, now + 0.08);
+    gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+    osc2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+    osc2.start(now + 0.08);
+    osc2.stop(now + 0.4);
+  }
+
+  // Inicialização e carregamento do Histórico de Vendas
   window.onload = function() {
     const saved = localStorage.getItem('pix_pos_config');
+    const savedTotal = localStorage.getItem('pix_pos_total_dia');
+    
+    if (savedTotal) {
+      totalDia = parseFloat(savedTotal);
+      updateTotalDisplay();
+    }
+
     if (saved) {
       config = JSON.parse(saved);
       document.getElementById('storeLabel').innerText = config.name || 'Minha Loja';
+      showStep('sale');
     } else {
       showStep('config');
     }
@@ -133,11 +298,11 @@
   function editConfig() {
     document.getElementById('pixKey').value = config.key || '';
     document.getElementById('merchantName').value = config.name || '';
-    document.getElementById('merchantCity').value = config.city || '';
+    document.getElementById('merchantCity').value = config.city || 'SAO PAULO';
     showStep('config');
   }
 
-  // Lógica do Teclado
+  // Lógica do Teclado Numérico
   function updateDisplay() {
     const floatValue = rawCents / 100;
     document.getElementById('display').innerText = floatValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -160,31 +325,23 @@
     updateDisplay();
   }
 
-  // Formatação robusta do tipo de chave Pix (Padrão Banco Central)
+  // Formatação automática para diferentes tipos de chaves Pix
   function formatPixKey(key) {
     key = key.trim();
-    
-    // E-mail ou Chave Aleatória (EVP)
     if (key.includes('@') || (key.length === 36 && key.includes('-'))) {
-      return key;
+      return key; // E-mail ou Chave Aleatória
     }
-    
     const onlyNumbers = key.replace(/\D/g, '');
-    
-    // CPF (11) ou CNPJ (14)
     if (onlyNumbers.length === 11 || onlyNumbers.length === 14) {
-      return onlyNumbers;
+      return onlyNumbers; // CPF ou CNPJ
     }
-    
-    // Celular (adiciona +55 se for DDD + número de 10 ou 11 dígitos)
     if (onlyNumbers.length >= 10 && onlyNumbers.length <= 11) {
-      return `+55${onlyNumbers}`;
+      return `+55${onlyNumbers}`; // Celular
     }
-
     return key;
   }
 
-  // Geração do Payload Pix Estático (Padrão EMV Co / BR Code)
+  // Geração do Payload Pix conforme padrão BC (EMV Co / BR Code)
   function createPixPayload(key, name, city, amount) {
     function formatField(id, value) {
       const len = value.length.toString().padStart(2, '0');
@@ -215,7 +372,7 @@
     return payload;
   }
 
-  // Cálculo CRC16 CCITT (Obrigatório do BACEN)
+  // Função para Cálculo CRC16 CCITT
   function crc16(str) {
     let crc = 0xFFFF;
     for (let i = 0; i < str.length; i++) {
@@ -244,9 +401,9 @@
     document.getElementById('qrcode').innerHTML = '';
     new QRCode(document.getElementById('qrcode'), {
       text: pixPayload,
-      width: 220,
-      height: 220,
-      colorDark : "#002f6c"
+      width: 200,
+      height: 200,
+      colorDark : "#0b0f19"
     });
 
     document.getElementById('qrValue').innerText = val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -254,8 +411,23 @@
   }
 
   function confirmPayment() {
+    const val = rawCents / 100;
+    
+    // Atualização e Armazenamento do Faturamento do Dia
+    totalDia += val;
+    localStorage.setItem('pix_pos_total_dia', totalDia.toString());
+    updateTotalDisplay();
+
+    // Disparadores visuais e auditivos de sucesso
+    playSuccessSound();
+    confetti({ particleCount: 120, spread: 60, origin: { y: 0.8 } });
+
     clearValue();
     showStep('sale');
+  }
+
+  function updateTotalDisplay() {
+    document.getElementById('dayTotal').innerText = `Hoje: ${totalDia.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
   }
 
   function cancelSale() {
