@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Sim Digital</title>
+  <title>Sim7 Digital</title>
   
   <!-- Manifest para PWA (Instalação no telemóvel) -->
-  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Pix%20POS%22%2C%22short_name%22%3A%22PixPOS%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0f19%22%2C%22theme_color%22%3A%22%2307b8a7%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A//cdn-icons-png.flaticon.com/512/5968/5968666.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%7D%5D%7D">
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Pix%20POS%20-%20Sim7%22%2C%22short_name%22%3A%22PixPOS%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0f19%22%2C%22theme_color%22%3A%22%2307b8a7%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A//cdn-icons-png.flaticon.com/512/5968/5968666.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image/png%22%7D%5D%7D">
   <meta name="theme-color" content="#0b0f19">
   <meta name="apple-mobile-web-app-capable" content="yes">
   
@@ -142,11 +142,25 @@
 <div class="container p-3 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
   <div class="card pos-card bg-dark">
     
-    <!-- Tela 1: Configuração da Chave Pix -->
+    <!-- Tela 1: Configuração da Chave Pix com a Logo Sim7 Tecnolog -->
     <div id="step-config" class="d-none screen-fade">
       <div class="text-center mb-4">
-        <div class="mb-2" style="font-size: 2.5rem;">⚡</div>
-        <h4 class="fw-bold text-white m-0">Ativar Pix POS</h4>
+        <!-- Logo Sim7 Tecnolog Renderizada em SVG -->
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-1">
+          <!-- Ícone do Chip 7 -->
+          <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="15" y="15" width="70" height="70" rx="15" fill="#0b0f19" stroke="#07b8a7" stroke-width="4"/>
+            <path d="M25 40 H35 M25 50 H35 M25 60 H35 M65 40 H75 M65 50 H75 M65 60 H75 M40 25 V35 M50 25 V35 M60 25 V35 M40 65 V75 M50 65 V75 M60 65 V75" stroke="#07b8a7" stroke-width="3" stroke-linecap="round"/>
+            <path d="M35 32 L65 32 L40 68" stroke="#00f2fe" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="50" cy="50" r="10" stroke="#07b8a7" stroke-width="3" fill="#151c2c"/>
+          </svg>
+          <!-- Texto da Marca -->
+          <div class="text-start">
+            <span class="fw-bold text-white fs-3" style="letter-spacing: -0.02em;">Sim<span style="color: #00f2fe;">7</span></span>
+            <div style="font-size: 0.65rem; color: #94a3b8; letter-spacing: 0.25em; font-weight: 800; margin-top: -6px;">TECNOLOG</div>
+          </div>
+        </div>
+        <h5 class="fw-bold text-white m-0 mt-3">Ativar Pix POS</h5>
         <small class="text-muted">Configure o seu estabelecimento abaixo</small>
       </div>
       
@@ -175,7 +189,14 @@
     <div id="step-sale" class="screen-fade">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="d-flex align-items-center gap-2">
-          <span class="badge" style="background-color: var(--primary); font-weight: 600;" id="storeLabel">Carregando...</span>
+          <!-- Logo Reduzido no Topo -->
+          <div class="d-flex align-items-center gap-1">
+            <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="15" y="15" width="70" height="70" rx="15" fill="#0b0f19" stroke="#07b8a7" stroke-width="6"/>
+              <path d="M35 32 L65 32 L40 68" stroke="#00f2fe" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="badge" style="background-color: var(--primary); font-weight: 600; padding: 6px 10px;" id="storeLabel">Carregando...</span>
+          </div>
           <span class="historic-pill py-1 px-2" id="dayTotal" style="font-size: 0.8rem;">Hoje: R$ 0,00</span>
         </div>
         <button class="btn btn-sm btn-outline-secondary border-0 p-1" onclick="editConfig()">⚙️</button>
@@ -224,7 +245,7 @@
   let config = {};
   let totalDia = 0;
 
-  // Efeitos Sonoros Simulados por Sintetizador de Áudio
+  // Efeitos Sonoros Simulados por Sintetizador de Áudio (Dispensa arquivos externos)
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   function playSuccessSound() {
     const now = audioCtx.currentTime;
@@ -241,7 +262,7 @@
     osc1.start(now);
     osc1.stop(now + 0.15);
 
-    // Segundo bipe (mais agudo)
+    // Segundo bipe (mais agudo, imitando caixa registadora)
     const osc2 = audioCtx.createOscillator();
     const gain2 = audioCtx.createGain();
     osc2.type = 'sine';
@@ -330,7 +351,7 @@
   function formatPixKey(key) {
     key = key.trim();
     if (key.includes('@') || (key.length === 36 && key.includes('-'))) {
-      return key; // E-mail ou Chave Aleatória
+      return key; // E-mail ou Chave Aleatória (EVP)
     }
     const onlyNumbers = key.replace(/\D/g, '');
     if (onlyNumbers.length === 11 || onlyNumbers.length === 14) {
@@ -373,7 +394,7 @@
     return payload;
   }
 
-  // Função para Cálculo CRC16 CCITT
+  // Função para Cálculo CRC16 CCITT (Requisito obrigatório do Banco Central)
   function crc16(str) {
     let crc = 0xFFFF;
     for (let i = 0; i < str.length; i++) {
